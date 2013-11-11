@@ -182,9 +182,10 @@
 
 - (void) setSelectedIndex:(NSUInteger)newSelectedIndex {
     if (newSelectedIndex != self.selectedIndex && newSelectedIndex < [self.tabBarItems count]) {
-        selectionHandler(DMTabBarItemSelectionType_WillSelect,self.selectedTabBarItem,newSelectedIndex);
+        DMTabBarItem* item = [self.tabBarItems objectAtIndex:newSelectedIndex];
+        selectionHandler(DMTabBarItemSelectionType_WillSelect, item, newSelectedIndex);
         self.selectedTabBarItem = [self.tabBarItems objectAtIndex:newSelectedIndex];
-        selectionHandler(DMTabBarItemSelectionType_DidSelect,self.selectedTabBarItem,newSelectedIndex);
+        selectionHandler(DMTabBarItemSelectionType_DidSelect, item, newSelectedIndex);
     }
 }
 

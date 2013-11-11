@@ -169,10 +169,8 @@
     NSUInteger selectedItemIndex = [self.tabBarItems indexOfObject:newSelectedTabBarItem];
     selectedTabBarItem_ = newSelectedTabBarItem;
     
-    __block NSUInteger buttonIndex = 0;
     [self.tabBarItems enumerateObjectsUsingBlock:^(DMTabBarItem* tabBarItem, NSUInteger idx, BOOL *stop) {
-        tabBarItem.state = (buttonIndex == selectedItemIndex ? NSOnState : NSOffState);
-        ++buttonIndex;
+        tabBarItem.state = idx == selectedItemIndex ? NSOnState : NSOffState;
     }];
 }
 

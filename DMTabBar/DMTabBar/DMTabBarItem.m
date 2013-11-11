@@ -25,6 +25,7 @@ static CGFloat kDMTabBarItemGradientColor_Locations[] =     {0.0f, 0.5f, 1.0f};
 
 @interface DMTabBarItem() {
     NSButton*       tabBarItemButton;
+    NSImage*        _originalIcon;
 }
 @end
 
@@ -35,6 +36,7 @@ static CGFloat kDMTabBarItemGradientColor_Locations[] =     {0.0f, 0.5f, 1.0f};
 @synthesize tag;
 @synthesize tabBarItemButton;
 @synthesize state;
+@synthesize alternateIcon;
 
 + (DMTabBarItem *) tabBarItemWithIcon:(NSImage *) iconImage tag:(NSUInteger) itemTag {
     return [[DMTabBarItem alloc] initWithIcon:iconImage tag:itemTag];
@@ -46,7 +48,7 @@ static CGFloat kDMTabBarItemGradientColor_Locations[] =     {0.0f, 0.5f, 1.0f};
         // Create associated NSButton to place inside the bar (it's customized by DMTabBarButtonCell with a special gradient for selected state)
         tabBarItemButton = [[NSButton alloc] initWithFrame:NSZeroRect];
         tabBarItemButton.cell = [[DMTabBarButtonCell alloc] init];
-        tabBarItemButton.image = iconImage;
+        tabBarItemButton.image = self.icon = iconImage;
         [tabBarItemButton setEnabled:YES];
         tabBarItemButton.tag = itemTag;
         [tabBarItemButton sendActionOn:NSLeftMouseDownMask];
@@ -63,7 +65,7 @@ static CGFloat kDMTabBarItemGradientColor_Locations[] =     {0.0f, 0.5f, 1.0f};
 // We simply redirects properties to the the NSButton class
 
 - (void) setIcon:(NSImage *)newIcon { 
-    tabBarItemButton.image = newIcon;   
+    tabBarItemButton.image = _originalIcon = newIcon;
 }
 
 - (NSImage *) icon {   
@@ -103,6 +105,9 @@ static CGFloat kDMTabBarItemGradientColor_Locations[] =     {0.0f, 0.5f, 1.0f};
 }
 
 - (void) setState:(NSInteger)value {
+    if (self.alternateIcon) {
+        tabBarItemButton.image = value == NSOnState ? self.alternateIcon : _originalIcon;
+    }
     tabBarItemButton.state = value;
 }
 

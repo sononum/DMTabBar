@@ -17,7 +17,7 @@
 @property (nonatomic,strong)    NSString*   toolTip;                        // Tool tip message
 @property (nonatomic,strong)    NSString*   keyEquivalent;                  // Shortcut key equivalent
 @property (nonatomic,assign)    NSUInteger  keyEquivalentModifierMask;      // Shortcut modifier key (keyEquivalentModifierMask+keyEquivalent = event)
-@property (nonatomic,assign)    NSUInteger  tag;                            // Tag of the item
+@property (nonatomic,assign)    NSInteger  tag;                            // Tag of the item
 @property (nonatomic,assign)    NSInteger   state;                          // Current state (NSOnState = selected)
 
 // Internal use
